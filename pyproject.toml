@@ -1,81 +1,80 @@
 [build-system]
-requires = ["setuptools", "poetry_core>=1.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ['setuptools', 'poetry_core>=1.0']
+build-backend = 'poetry.core.masonry.api'
 
 [tool.poetry]
-name = "graph_imports"
-version = "0.1"
+name = 'graph_imports'
+version = '0.1'
 description = "Tools for JAX."
-license = "MIT"
-authors = ["Neil Girdhar <mistersheik@gmail.com>"]
-readme = "README.rst"
-repository = "https://github.com/NeilGirdhar/graph_imports"
+license = 'MIT'
+authors = ['Neil Girdhar <mistersheik@gmail.com>']
+readme = 'README.rst'
+repository = 'https://github.com/NeilGirdhar/graph_imports'
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Topic :: Software Development",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "License :: OSI Approved :: MIT License"]
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Topic :: Software Development',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'License :: OSI Approved :: MIT License']
 
 [tool.poetry.dependencies]
-python = "^3.7"
-pydeps = "^1"
-typer = "^0"
+python = '^3.7'
+pydeps = '^1'
+typer = '^0'
 
 [tool.poetry.dev-dependencies]
-flake8 = ">=3.9"
-isort = ">=5.8"
-mypy = ">=0.812"
-pylint = ">=2.8"
+flake8 = '>=3.9'
+isort = '>=5.8'
+jupyter = '>=1'
+jupyter-client = '>=7'
+mypy = '>=0.900'
+pylint = '>=2.8'
 
 [tool.poetry.scripts]
 graph_imports = 'graph_imports:cli'
 
 [tool.isort]
 line_length = 100
-known_first_party = ["tfax"]
-known_third_party = ["jax"]
 multi_line_output = 0
-skip_glob = [".pytype/*.py"]
-skip = []
+skip_glob = ['.pytype/*.py']
 
 [tool.pycodestyle]
 max-line-length = 100
-exclude = ["__init__.py", "__pycache__", "README.rst"]
-
-[tool.pytest]
 
 [tool.pytype]
-disable = "ignored-abstractmethod"
-exclude = ["**/*_test.py", "**/test_*.py'"]
+disable = 'ignored-abstractmethod'
 
+[tool.pylint.master]
+jobs = 0
 [tool.pylint.messages_control]
 disable = [
-    "abstract-method",
-    "arguments-differ",
-    "cyclic-import",  # https://github.com/PyCQA/pylint/issues/3525
-    "invalid-name",
-    "invalid-unary-operand-type",
-    "missing-docstring",
-    "no-member",
-    "no-self-use",
-    "too-few-public-methods",
-    "too-many-arguments",
-    "too-many-branches",
-    "too-many-locals",
-    "too-many-return-statements",
-    "too-many-statements",
-    "unused-argument"]
+    'abstract-method',
+    'arguments-differ',
+    'invalid-name',
+    'invalid-unary-operand-type',
+    'missing-docstring',
+    'no-member',
+    'no-self-use',
+    'too-few-public-methods',
+    'too-many-arguments',
+    'too-many-branches',
+    'too-many-locals',
+    'too-many-return-statements',
+    'too-many-statements',
+    'unused-argument']
+enable= [
+    'useless-suppression',
+    'use-symbolic-message-instead']
 
 [tool.pylint.reports]
-output-format = "colorized"
+output-format = 'colorized'
 
 [tool.pylint.similarities]
-min-similarity-lines = 10
-ignore-imports = "yes"
+min-similarity-lines = 20
+ignore-imports = 'yes'
