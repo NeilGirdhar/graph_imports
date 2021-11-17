@@ -44,7 +44,8 @@ def attrs(fmt: str) -> dict[str, str]:
 
 
 def attrs2fmt(attr_map: Mapping[str, str]) -> str:
-    return '[%s];' % ','.join('%s=%s' % (k, v) for k, v in attr_map.items())
+    middle = ','.join(f'{k}={v}' for k, v in attr_map.items())
+    return f'[{middle}];'
 
 
 @cli.command()
@@ -94,10 +95,10 @@ def main(base_name: str) -> None:
         fp.write('\n'.join(header))
         for n in used_nodes:
             some_dict: dict[str, str] = node_mapping[n]
-            some_dict['label'] = '"%s"' % n
-            print('    {} {}'.format(n, attrs2fmt(some_dict)), file=fp)
+            some_dict['label'] = f'"{n}"'
+            print(f'    {n} {attrs2fmt(some_dict)}', file=fp)
         for (a, b), fmt_dict in rule_mapping.items():
-            print('    {} -> {} {}'.format(a, b, attrs2fmt(fmt_dict)), file=fp)
+            print(f'    {a} -> {b} {attrs2fmt(fmt_dict)}', file=fp)
         print('}', file=fp)
         fp.flush()
 
