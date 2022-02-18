@@ -34,7 +34,7 @@ def find_modules(path: Path,
 def shorten(name: str,
             modules: Mapping[str, list[str]]) -> str:
     retval = '•'.join(modules[name.strip()])
-    if retval in ['graph', 'edge']:
+    if retval in ['graph', 'node', 'edge']:
         return f'{retval}_'
     return retval
 
