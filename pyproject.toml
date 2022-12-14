@@ -16,26 +16,27 @@ classifiers = [
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
     'Topic :: Software Development',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'License :: OSI Approved :: MIT License']
 
 [tool.poetry.dependencies]
-python = '^3.7'
+python = '>=3.8.1, <4'
 pydeps = '^1'
 typer = '^0'
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 flake8 = '>=3.9'
 isort = '>=5.8'
 jupyter = '>=1'
 mypy = '>=0.900'
 pylint = '>=2.8'
 pyproject-flake8 = ">=0.0.1a2"
+pyright = ">=0.0.13"
 
 [tool.poetry.scripts]
 graph_imports = 'graph_imports:cli'
@@ -79,3 +80,26 @@ output-format = 'colorized'
 [tool.pylint.similarities]
 min-similarity-lines = 20
 ignore-imports = 'yes'
+
+[tool.pyright]
+stubPath = ""
+reportPrivateImportUsage = false
+reportUnnecessaryTypeIgnoreComment = true
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+pretty = false
+show_error_codes = true
+show_error_context = false
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true

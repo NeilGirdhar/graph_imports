@@ -40,7 +40,7 @@ def shorten(name: str,
 
 
 def attrs(fmt: str) -> dict[str, str]:
-    return dict(kv.split('=') for kv in fmt.strip()[:-2].split(','))  # type: ignore
+    return dict(kv.split('=') for kv in fmt.strip()[:-2].split(','))
 
 
 def attrs2fmt(attr_map: Mapping[str, str]) -> str:
