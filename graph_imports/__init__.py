@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations  # noqa: D104, EXE002
 
 import subprocess
 from collections.abc import Mapping
@@ -22,12 +22,11 @@ def find_modules(path: Path,
                                   if len(path_components) > 1
                                   else path_components)
         for sub_path in path.iterdir():
-            modules.update(find_modules(sub_path, path_components + [sub_path.stem]))
-    elif path.is_file() and path.suffix == '.py':
-        if path.stem != '__init__':
-            modules[ruined_module] = (path_components[1:-1]
-                                      if len(path_components) > 2
-                                      else path_components[:-1])
+            modules.update(find_modules(sub_path, [*path_components, sub_path.stem]))
+    elif path.is_file() and path.suffix == '.py' and path.stem != '__init__':
+        modules[ruined_module] = (path_components[1:-1]
+                                  if len(path_components) > 2  # noqa: PLR2004
+                                  else path_components[:-1])
     return modules
 
 
