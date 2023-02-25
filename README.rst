@@ -18,7 +18,8 @@ Contribution guidelines
 
 - How to clean the source:
 
-  - :bash:`isort tjax`
-  - :bash:`pylint tjax`
-  - :bash:`mypy tjax`
-  - :bash:`flake8 tjax`
+  - :bash:`ruff .`
+  - :bash:`pyright`
+  - :bash:`mypy`
+  - :bash:`isort .`
+  - :bash:`pylint graph_imports`

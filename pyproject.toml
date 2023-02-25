@@ -82,11 +82,13 @@ min-similarity-lines = 20
 ignore-imports = 'yes'
 
 [tool.pyright]
+include = ["graph_imports"]
 stubPath = ""
 reportPrivateImportUsage = false
 reportUnnecessaryTypeIgnoreComment = true
 
 [tool.mypy]
+files = ["graph_imports"]
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
