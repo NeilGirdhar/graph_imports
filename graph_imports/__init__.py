@@ -56,7 +56,7 @@ def main(base_name: str) -> None:
     lines = cp.stdout.splitlines()
     header = [line
               for line in lines[:6]
-              if 'concentrate' not in line and line != '']
+              if line and 'concentrate' not in line]
     body = lines[6:-3]
     nodes = [line for line in body if '->' not in line if line]
 
