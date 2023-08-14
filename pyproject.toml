@@ -130,12 +130,11 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.ruff]
-select = ["F", "E", "W", "I", "N", "D", "UP", "YTT", "ANN", "S", "BLE", "FBT", "B", "A", "C40",
-    "EM", "EXE", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "RSE", "RET", "SLF", "SIM",
-    "TID", "PTH", "PD", "PGH", "PL", "TRY", "NPY", "RUF"]
-ignore = ["B008", "B011", "D100", "D101", "D102", "D107", "S101", "D103", "D105",
-    "SIM117", "ANN101", "ANN102", "ANN401", "TID252", "FBT003", "I001", "G004",
-    "PT015", "PGH003"]
+select = ["ALL"]
+ignore = ["B011", "D100", "D101", "D102", "D104", "D107", "D103", "D105", "S101", "ANN101",
+       "ANN102", "ANN401", "TID252", "FBT003", "I001", "G004", "PT015", "PGH003", "COM812",
+       "Q000", "TCH001", "TCH002", "TCH003", "ERA001", "ARG001", "ARG002", "ARG003", "ARG004",
+       "FIX002", "TD", "PD008", "PT013"]
 line-length = 100
 target-version = "py310"
 

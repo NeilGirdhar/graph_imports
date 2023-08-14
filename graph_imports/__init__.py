@@ -1,11 +1,12 @@
-from __future__ import annotations  # noqa: D104, EXE002
+from __future__ import annotations
 
-import subprocess
+import io
 from collections.abc import Mapping
+from contextlib import redirect_stdout
 from pathlib import Path
-from tempfile import NamedTemporaryFile
 
 import typer
+from pydeps import pydeps
 
 __all__ = ['cli']
 
@@ -51,9 +52,14 @@ def attrs2fmt(attr_map: Mapping[str, str]) -> str:
 def main(base_name: str) -> None:
     modules = find_modules(Path(base_name), [base_name])
 
-    cp = subprocess.run(['pydeps', base_name, '--max-bacon=1', '--show-dot', '--no-output'],
-                        stdout=subprocess.PIPE, text=True, check=True)
-    lines = cp.stdout.splitlines()
+    string_io = io.StringIO()
+    with redirect_stdout(string_io):
+        pydeps.call_pydeps(base_name,
+                           max_bacon=1,
+                           show_dot=True,
+                           no_output=True)
+    string_value = string_io.getvalue()
+    lines = string_value.splitlines()
     header = [line
               for line in lines[:6]
               if line and 'concentrate' not in line]
@@ -90,19 +96,20 @@ def main(base_name: str) -> None:
         used_nodes.add(a)
         used_nodes.add(b)
 
-    with NamedTemporaryFile('w') as fp:
-        fp.write('\n'.join(header))
-        for n in used_nodes:
-            some_dict: dict[str, str] = node_mapping[n]
-            some_dict['label'] = f'"{n}"'
-            print(f'    {n} {attrs2fmt(some_dict)}', file=fp)
-        for (a, b), fmt_dict in rule_mapping.items():
-            print(f'    {a} -> {b} {attrs2fmt(fmt_dict)}', file=fp)
-        print('}', file=fp)
-        fp.flush()
+    dot_stringio = io.StringIO()
+    dot_stringio.write('\n'.join(header))
+    for n in used_nodes:
+        some_dict: dict[str, str] = node_mapping[n]
+        some_dict['label'] = f'"{n}"'
+        dot_stringio.write(f'    {n} {attrs2fmt(some_dict)}')
+    for (a, b), fmt_dict in rule_mapping.items():
+        dot_stringio.write(f'    {a} -> {b} {attrs2fmt(fmt_dict)}')
+    dot_stringio.write('}')
+    output = pydeps.dot.call_graphviz_dot(dot_stringio.getvalue(), 'png')
 
-        uml_dir = Path('uml')
-        write_to = (f'uml/{base_name}.png'
-                    if uml_dir.exists() and uml_dir.is_dir()
-                    else f'{base_name}.png')
-        subprocess.run(['dot', '-Tpng', fp.name, '-o', write_to], check=True)
+    uml_dir = Path('uml')
+    write_to = (uml_dir / f'{base_name}.png'
+                if uml_dir.exists() and uml_dir.is_dir()
+                else Path(f'{base_name}.png'))
+    with write_to.open('wb') as f:
+        f.write(output)
