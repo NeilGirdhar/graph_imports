@@ -1,7 +1,8 @@
+"""Create a graph of the import graph of a Python project."""
 from __future__ import annotations
 
 import io
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from contextlib import redirect_stdout
 from pathlib import Path
 
@@ -15,7 +16,8 @@ cli = typer.Typer()
 
 
 def find_modules(path: Path,
-                 path_components: list[str]) -> Mapping[str, list[str]]:
+                 path_components: list[str]
+                 ) -> Mapping[str, list[str]]:
     modules: dict[str, list[str]] = {}
     ruined_module = '_'.join(path_components)
     if path.is_dir():
@@ -34,7 +36,7 @@ def find_modules(path: Path,
 def shorten(name: str,
             modules: Mapping[str, list[str]]) -> str:
     retval = '•'.join(modules[name.strip()])
-    if retval in ['graph', 'node', 'edge']:
+    if retval in {'graph', 'node', 'edge'}:
         return f'{retval}_'
     return retval
 
@@ -48,10 +50,9 @@ def attrs2fmt(attr_map: Mapping[str, str]) -> str:
     return f'[{middle}];'
 
 
-@cli.command()
-def main(base_name: str) -> None:
-    modules = find_modules(Path(base_name), [base_name])
-
+def parse_dependencies(base_name: str,
+                       modules: Mapping[str, list[str]]
+                       ) -> tuple[Sequence[str], Mapping[str, dict[str, str]], Sequence[str]]:
     string_io = io.StringIO()
     with redirect_stdout(string_io):
         pydeps.call_pydeps(base_name,
@@ -75,6 +76,13 @@ def main(base_name: str) -> None:
         node_mapping[sname] = attrs(fmt)
 
     rules = [line for line in body if '->' in line]
+    return header, node_mapping, rules
+
+
+@cli.command()
+def main(base_name: str) -> None:
+    modules = find_modules(Path(base_name), [base_name])
+    header, node_mapping, rules = parse_dependencies(base_name, modules)
 
     rule_mapping: dict[tuple[str, str], dict[str, str]] = {}
     used_nodes = set()
