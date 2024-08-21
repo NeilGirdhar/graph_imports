@@ -5,7 +5,7 @@ build-backend = 'poetry.core.masonry.api'
 [tool.poetry]
 name = 'graph_imports'
 version = '0.1'
-description = "Tools for JAX."
+description = "Graph the imports in a library."
 license = 'MIT'
 authors = ['Neil Girdhar <mistersheik@gmail.com>']
 readme = 'README.rst'
