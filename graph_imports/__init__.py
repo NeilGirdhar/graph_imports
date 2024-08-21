@@ -99,7 +99,7 @@ def main(base_name: str) -> None:
             continue
         if b == base_name:
             continue
-        rule_mapping[(a, b)] = attrs(fmt)
+        rule_mapping[a, b] = attrs(fmt)
 
         used_nodes.add(a)
         used_nodes.add(b)
