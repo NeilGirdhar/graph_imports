@@ -17,7 +17,6 @@ classifiers = [
   'Operating System :: OS Independent',
   'Programming Language :: Python',
   'Programming Language :: Python :: 3',
-  'Programming Language :: Python :: 3.8',
   'Programming Language :: Python :: 3.9',
   'Programming Language :: Python :: 3.10',
   'Programming Language :: Python :: 3.11',
@@ -25,7 +24,7 @@ classifiers = [
   'Topic :: Software Development :: Libraries :: Python Modules',
   'License :: OSI Approved :: MIT License'
 ]
-poetry.dependencies = [
+dependencies = [
   'pydeps >= 1',
   'typer >= 0',
 ]
@@ -53,7 +52,7 @@ skip_glob = ['.pytype/*.py']
 
 [tool.pylint.master]
 jobs = 0
-py-version = '3.8'
+py-version = '3.9'
 load-plugins = [
   'pylint.extensions.bad_builtin',
   'pylint.extensions.broad_try_clause',
@@ -104,6 +103,7 @@ disable = [
   'missing-docstring',
   'no-member',
   'no-self-use',
+  'not-callable',
   'protected-access',
   'redefined-builtin',
   'redefined-outer-name',
@@ -116,6 +116,7 @@ disable = [
   'too-many-branches',
   'too-many-instance-attributes',
   'too-many-locals',
+  'too-many-positional-arguments',
   'too-many-return-statements',
   'too-many-statements',
   'too-many-try-statements',
@@ -139,11 +140,17 @@ ignore-imports = 'yes'
 
 [tool.pyright]
 include = ["graph_imports"]
-stubPath = ""
+stubPath = ''
+venvPath = '.'
+venv = '.venv'
 enableTypeIgnoreComments = false
-reportImportCycles = true
+reportImportCycles = false
 reportCallInDefaultInitializer = true
+reportConstantRedefinition = true
+reportDeprecated = true
+reportDuplicateImport = true
 reportImplicitOverride = true
+reportImplicitStringConcatenation = false
 reportIncompatibleMethodOverride = true
 reportIncompatibleVariableOverride = true
 reportInconsistentConstructor = true
@@ -153,6 +160,7 @@ reportMissingSuperCall = true
 reportMissingTypeArgument = true
 reportOverlappingOverload = true
 reportPrivateImportUsage = true
+reportPropertyTypeMismatch = true
 reportShadowedImports = true
 reportUninitializedInstanceVariable = true
 reportUnknownArgumentType = false
@@ -169,6 +177,11 @@ reportUntypedBaseClass = true
 reportUntypedClassDecorator = true
 reportUntypedFunctionDecorator = true
 reportUntypedNamedTuple = true
+reportUnusedCallResult = false
+reportUnusedClass = true
+reportUnusedExpression = true
+reportUnusedFunction = true
+reportUnusedVariable = true
 
 [tool.mypy]
 files = ["graph_imports"]
@@ -199,7 +212,7 @@ line-length = 100
 
 [tool.ruff.lint]
 preview = true
-select = ["ALL"]
+select = ['ALL']
 ignore = [
   'ANN101', # Missing type annotation for self.
   'ANN102', # Missing type annotation for cls.
