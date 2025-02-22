@@ -31,14 +31,8 @@ dependencies = [
   "typer >= 0",
 ]
 
-[project.urls]
-repository = "https://github.com/NeilGirdhar/graph_imports"
-
-[project.scripts]
-graph_imports = "graph_imports:cli"
-
-[tool.uv]
-dev-dependencies = [
+[project.optional-dependencies]
+dev = [
   "isort >= 5.8",
   "jupyter >= 1",
   "mypy >= 1.0",
@@ -46,6 +40,12 @@ dev-dependencies = [
   "pyright >= 0.0.13",
   "ruff >= 0",
 ]
+
+[project.urls]
+repository = "https://github.com/NeilGirdhar/graph_imports"
+
+[project.scripts]
+graph_imports = "graph_imports:cli"
 
 [tool.isort]
 line_length = 100
@@ -256,6 +256,7 @@ ignore = [
   "TD002", # Missing author in TODO; try: # TODO(<author_name>): ....
   "TD003", # Missing issue link on the line following this TODO.
   "TID252", # Relative imports from parent modules are banned.
+  "UP037", # Remove quotes from type annotation.
 ]
 
 [tool.ruff.lint.flake8-errmsg]
@@ -265,7 +266,6 @@ max-string-length = 40
 combine-as-imports = true
 
 [tool.ruff.lint.pydocstyle]
-# Use Google-style docstrings.
 convention = "google"
 
 [tool.ruff.lint.pylint]
