@@ -8,7 +8,7 @@ version = "0.1"
 description = "Graph the imports in a library."
 readme = "README.rst"
 requires-python = ">=3.10,<3.14"
-license = {file = "LICENSE"}
+license = "Apache-2.0"
 authors = [{email = "mistersheik@gmail.com"}, {name = "Neil Girdhar"}]
 maintainers = [{email = "mistersheik@gmail.com"}, {name = "Neil Girdhar"}]
 classifiers = [
