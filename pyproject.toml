@@ -42,7 +42,7 @@ dev = [
 ]
 
 [project.urls]
-repository = "https://github.com/NeilGirdhar/graph_imports"
+source = "https://github.com/NeilGirdhar/graph_imports"
 
 [project.scripts]
 graph_imports = "graph_imports:cli"
