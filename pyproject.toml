@@ -31,7 +31,7 @@ dependencies = [
   "typer >= 0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "isort >= 5.8",
   "jupyter >= 1",
